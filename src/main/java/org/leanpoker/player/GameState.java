@@ -47,13 +47,44 @@ public class GameState {
 		return getPair() != null;
 	}
 
-	public boolean haveRank(String rank) {
-		return getMyPlayer().hole_cards.stream().anyMatch(a -> a.equals(rank));
+	public boolean haveRankInHand(String... rank) {
+		List<Card> allcards = getMyPlayer().hole_cards;
+		for (int j = 0; j < rank.length; j++) {
+			boolean foundIt = false;
+			for (int i = 0; i < allcards.size(); i++) {
+				foundIt = allcards.get(i).rank.equals(rank.equals(j));
+				if (foundIt) break;
+			}
+			if (!foundIt) return false;
+		}
+		return true;
+	}
+
+
+	public boolean haveRankInAllCards(String... rank) {
+		List<Card> allcards = getAllCards();
+		for (int j = 0; j < rank.length; j++) {
+			boolean foundIt = false;
+			for (int i = 0; i < allcards.size(); i++) {
+				foundIt = allcards.get(i).rank.equals(rank.equals(j));
+				if (foundIt) break;
+			}
+			if (!foundIt) return false;
+		}
+		return true;
 	}
 
 	public boolean haveAce() {
-		return haveRank("A");
+		return haveRankInHand("A");
 	}
+
+
+	public boolean haveKandQInAll() {
+		return haveRankInAllCards("K", "Q");
+	}
+
+
+
 }
 
 /**
