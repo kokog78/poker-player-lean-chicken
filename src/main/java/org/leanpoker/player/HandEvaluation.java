@@ -18,23 +18,24 @@ public class HandEvaluation {
 			} else {
 				if (is66Plus() || isATsPlus() || isAJPlus() || isKQs()) {
 					return getAllInValue();
-				}
-				if (weFaceMinimalRaise()) {
+				} else if (weFaceRaiseMaxInBB(2.5)) {
 					return getMinRaise();
 				} else {
 					return 0;
 				}
 			}
-		} else {
+		} else if (isFlop()) {
 			if (weFacingNoBet()) {
 				return getBigBlindValue();
+			} if (weFaceRaiseMaxInBB(3)) {
+				return getMinRaise();
 			}
 		}
 
 		if (doAllIn()) {
 			return getMinRaise();
     	} else if (!wasRaised()) {
-    		int minimum = getMinimalValue();
+    		int minimum = getBigBlindValue() * 2;
     		if (minimum <= getStack()) {
     			return minimum;
     		}
@@ -43,7 +44,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean is66Plus() {
-		for (String rank : RankOrder.instance.ranks) {
+		for (String rank : RankOrder.ranks) {
 			if (RankOrder.instance.compare("6", rank) <= 0) {
 				if (hasCards(false, rank, rank)) {
 					return true;
@@ -54,7 +55,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean isATsPlus() {
-		for (String rank : RankOrder.instance.ranks) {
+		for (String rank : RankOrder.ranks) {
 			if (RankOrder.instance.compare("10", rank) <= 0) {
 				if (hasCards(true, "A", rank)) {
 					return true;
@@ -65,7 +66,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean isAJPlus() {
-		for (String rank : RankOrder.instance.ranks) {
+		for (String rank : RankOrder.ranks) {
 			if (RankOrder.instance.compare("J", rank) <= 0) {
 				if (hasCards(false, "A", rank)) {
 					return true;
@@ -121,20 +122,16 @@ public class HandEvaluation {
 		return state.getAllCards().size() == 2;
 	}
 	
+	private boolean isFlop() {
+		return state.getAllCards().size() == 5;
+	}
+	
 	private int getBigBlindValue() {
 		return state.game.small_blind * 2;
 	}
 	
-	private boolean weFaceMinimalRaise() {
-		return state.game.current_buy_in <= getBigBlindValue() * 2.5;
-	}
-	
-	private int getMinimalValue() {
-		return state.game.small_blind * 4;
-	}
-	
-	private int getMinBet() {
-		return getBigBlindValue();
+	private boolean weFaceRaiseMaxInBB(double bb) {
+		return state.game.current_buy_in <= getBigBlindValue() * bb;
 	}
 	
 	private int getMinRaise() {
