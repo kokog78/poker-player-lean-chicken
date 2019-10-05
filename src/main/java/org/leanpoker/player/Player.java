@@ -15,7 +15,7 @@ public class Player {
 
     public static int betRequest(JsonElement request) {
     	Game game = toGame(request);
-    	HandEvaluation eval = new HandEvaluation(getHand(game));
+    	HandEvaluation eval = new HandEvaluation(getHand(game), game.community_cards);
     	if (eval.doAllHands()) {
     		return getActivePlayer(game).stack;
     	} else {

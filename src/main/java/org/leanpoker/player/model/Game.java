@@ -13,7 +13,7 @@ public class Game {
 	public Integer small_blind;
 	public Integer orbits;
 	public Integer dealer;
-	public Card[] community_cards;
+	public List<Card> community_cards;
 	public Integer current_buy_in;
 	public Integer pot;
 }
