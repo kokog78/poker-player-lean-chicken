@@ -1,21 +1,30 @@
 package org.leanpoker.player;
 
-import java.util.List;
-
-import org.leanpoker.player.model.Card;
+import org.leanpoker.player.model.Game;
+import org.leanpoker.player.model.PlayerDto;
 
 public class HandEvaluation {
 
-	private final List<Card> hand;
-	private final List<Card> community_cards;
+	private final GameState state;
 	
-	public HandEvaluation(List<Card> hand, List<Card> community_cards) {
-		this.hand = hand;
-		this.community_cards = community_cards;
+	public HandEvaluation(GameState state) {
+		this.state = state;
+	}
+	
+	public int getBet() {
+		if (doAllHands()) {
+    		return getActivePlayer(state.game).stack;
+    	} else {
+    		return 0;
+    	}
 	}
 	
 	public boolean doAllHands() {
 		return true;
 	}
+	
+	public PlayerDto getActivePlayer(Game game) {
+    	return game.players.get(game.in_action);
+    }
 	
 }
