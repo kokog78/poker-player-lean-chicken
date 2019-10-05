@@ -10,6 +10,8 @@ import java.util.Map;
 
 public class GameStateBase {
 
+    public static final String[] CARD_RANKS = new String[] {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+
     protected Map<String, List<Card>> cardsMap(List<Card> cards) {
         Map<String, List<Card>> rankMap = new HashMap<>();
 
@@ -41,4 +43,22 @@ public class GameStateBase {
             return true;
         }
     }
+
+    public int maxSameCard(List<Card> cards) {
+        Map<String, List<Card>> rankMap = cardsMap(cards);
+        int max = 0;
+        for (String rank : CARD_RANKS) {
+            if (rankMap.containsKey(rank)) {
+                int size = rankMap.get(rank).size();
+                if (max < size) {
+                    max = size;
+                }
+            }
+        }
+        return max;
+    }
+
+
+
+
 }
