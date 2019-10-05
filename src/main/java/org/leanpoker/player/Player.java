@@ -1,9 +1,12 @@
 package org.leanpoker.player;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.Map;
+
+import org.leanpoker.player.model.Game;
 
 public class Player {
 
@@ -15,10 +18,14 @@ public class Player {
 
     public static void showdown(JsonElement game) {
     }
+    
+    private Game toGame(JsonElement request) {
+    	return new GsonBuilder().create().fromJson(request, Game.class);
+    }
 
-    private int[] getHand(JsonElement request) {
+    private int[] getHand(Game game) {
     	
-    	int in_action = request.getAsJsonObject().get("in_action").getAsInt();
+    	
     	return null;
     }
 }
