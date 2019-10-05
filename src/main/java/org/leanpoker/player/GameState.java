@@ -24,7 +24,6 @@ public class GameState extends GameStateBase {
 		return game.players.get(game.in_action);
 
 	}
-
 	public List<Card> getAllCards() {
 		List<Card> ret = new ArrayList<>();
 		ret.addAll(game.community_cards);
@@ -33,7 +32,16 @@ public class GameState extends GameStateBase {
 	}
 
 	public Card getPair() {
-		List<Card> cards = getAllCards();
+		return getPair(getAllCards());
+
+	}
+
+	public boolean havePair() {
+		return getPair() != null;
+	}
+
+	public Card getPair(List<Card> cards ) {
+		//List<Card> cards = getAllCards();
 		for (int i = 0; i < cards.size(); i++) {
 			for (int j = i + 1; j < cards.size(); j++) {
 				if (cards.get(i).rank.equals(cards.get(j).rank)) {
@@ -43,9 +51,7 @@ public class GameState extends GameStateBase {
 		}
 		return null;
 	}
-	public boolean havePair() {
-		return getPair() != null;
-	}
+
 
 
 
@@ -68,6 +74,26 @@ public class GameState extends GameStateBase {
 
 	public boolean haveKandQinAllSameColor() {
 		return 	haveCards(getAllCards(), true, "K", "Q");
+	}
+
+	public boolean haveDrill() {
+		return maxSameCard(getAllCards()) == 3;
+	}
+
+	public boolean havePoker() {
+		return maxSameCard(getAllCards()) == 4;
+	}
+
+
+	public boolean have2Pair() {
+		Card c = getPair();
+		if (c == null) {
+			return false;
+		}
+		List<Card> clist = new ArrayList<>();
+		clist.addAll(getAllCards());
+		clist.removeIf(c2 -> c2.rank == c.rank);
+		return getPair(clist) != null;
 	}
 
 }
