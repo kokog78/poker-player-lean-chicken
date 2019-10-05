@@ -17,11 +17,7 @@ public class HandEvaluation {
 				return getMinRaise();
 			} else {
 				if (isATsPlus() || isAJPlus() || isKQs()) {
-					if (getPot() >= getBigBlindValue() * 4) {
-						return getMinRaise();
-					} else {
-						return getMinRaise();
-					}
+					return getMinRaise();
 				} else if (weFaceRaiseMaxInBB(2.5)) {
 					return getMinRaise();
 				} else {

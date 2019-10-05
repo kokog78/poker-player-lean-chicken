@@ -26,8 +26,12 @@ public class GameState extends GameStateBase {
 	}
 	public List<Card> getAllCards() {
 		List<Card> ret = new ArrayList<>();
-		ret.addAll(game.community_cards);
-		ret.addAll(getMyPlayer().hole_cards);
+		if (game.community_cards != null) {
+			ret.addAll(game.community_cards);
+		}
+		if (getMyPlayer().hole_cards != null) {
+			ret.addAll(getMyPlayer().hole_cards);
+		}
 		return ret;
 	}
 
