@@ -46,6 +46,14 @@ public class GameState {
 	public boolean havePair() {
 		return getPair() != null;
 	}
+
+	public boolean haveRank(String rank) {
+		return getMyPlayer().hole_cards.stream().anyMatch(a -> a.equals(rank));
+	}
+
+	public boolean haveAce() {
+		return haveRank("A");
+	}
 }
 
 /**
