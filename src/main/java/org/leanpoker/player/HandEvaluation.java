@@ -24,7 +24,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean doAllIn() {
-		return isPair() || isAX() || isKQs() || isKJs() || isKTs() || isKQo();
+		return isPair() || isAX() || isKQ() || isKJs() || isKTs();
 	}
 	
 	private int getAllInValue() {
@@ -55,10 +55,6 @@ public class HandEvaluation {
 		return state.haveAce();
 	}
 	
-	private boolean isKQs() {
-		return false;
-	}
-	
 	private boolean isKJs() {
 		return state.haveKandJSameColor();
 	}
@@ -67,7 +63,7 @@ public class HandEvaluation {
 		return state.haveKand10SameColor();
 	}
 	
-	private boolean isKQo() {
+	private boolean isKQ() {
 		return state.haveKandQInAll();
 	}
 	
