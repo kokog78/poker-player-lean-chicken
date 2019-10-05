@@ -15,8 +15,14 @@ public class HandEvaluation {
 		if (doAllIn()) {
     		return getAllInValue();
     	} else {
-    		return getMinimalValue();
+    		/*
+    		int minimum = getMinimalValue();
+    		if (minimum <= getStack()) {
+    			return minimum;
+    		}
+    		*/
     	}
+		return 0;
 	}
 	
 	private boolean doAllIn() {
@@ -27,12 +33,12 @@ public class HandEvaluation {
 		return getActivePlayer(state.game).stack;
 	}
 	
+	private int getStack() {
+		return getActivePlayer(state.game).stack;
+	}
+	
 	private int getMinimalValue() {
-		int value = state.game.small_blind * 4;
-		if (value <= getActivePlayer(state.game).stack) {
-			return value;
-		}
-		return 0;
+		return state.game.small_blind * 4;
 	}
 	
 	private PlayerDto getActivePlayer(Game game) {
@@ -48,7 +54,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean isKQs() {
-		return false;
+		return state.haveKandQInAll();
 	}
 	
 	private boolean isKJs() {
