@@ -1,8 +1,5 @@
 package org.leanpoker.player;
 
-import java.util.List;
-
-import org.leanpoker.player.model.Card;
 import org.leanpoker.player.model.Game;
 import org.leanpoker.player.model.PlayerDto;
 
@@ -15,6 +12,20 @@ public class HandEvaluation {
 	}
 	
 	public int getBet() {
+		if (isPreFlop()) {
+			if (isFirstIn()) {
+				return getMinRaise();
+			} else if (weFaceMinimalRaise()) {
+				return getMinRaise();
+			} else {
+				return 0;
+			}
+		} else {
+			if (weFacingNoBet()) {
+				return getBigBlindValue();
+			}
+		}
+
 		if (doAllIn()) {
 			return getMinRaise();
     	} else if (!wasRaised()) {
@@ -34,6 +45,10 @@ public class HandEvaluation {
 		return getActivePlayer(state.game).stack;
 	}
 	
+	private boolean weFacingNoBet() {
+		return state.game.current_buy_in.equals(0);
+	}
+	
 	private int getStack() {
 		return getActivePlayer(state.game).stack;
 	}
@@ -42,8 +57,8 @@ public class HandEvaluation {
 		return state.game.current_buy_in > getBigBlindValue();
 	}
 	
-	private int getMinRaise() {
-		return state.game.current_buy_in * 2;
+	private boolean isFirstIn() {
+		return isPreFlop() && state.game.current_buy_in.equals(getBigBlindValue());
 	}
 	
 	private int getEffectiveStackSize() {
@@ -60,15 +75,8 @@ public class HandEvaluation {
 		return result / getBigBlindValue();
 	}
 	
-	private boolean cardsMatch(String ... rules) {
-		List<Card> cards = state.getAllCards();
-		for (String rule : rules) {
-			CardsRule cr = new CardsRule(rule);
-			if (!cr.matches(cards)) {
-				return false;
-			}
-		}
-		return true;
+	private boolean hasCards(boolean sameColor, String... ranks) {
+		return state.haveCards(state.getAllCards(), sameColor, ranks);
 	}
 	
 	private boolean isPreFlop() {
@@ -79,8 +87,20 @@ public class HandEvaluation {
 		return state.game.small_blind * 2;
 	}
 	
+	private boolean weFaceMinimalRaise() {
+		return state.game.current_buy_in <= getBigBlindValue() * 2.5;
+	}
+	
 	private int getMinimalValue() {
 		return state.game.small_blind * 4;
+	}
+	
+	private int getMinBet() {
+		return getBigBlindValue();
+	}
+	
+	private int getMinRaise() {
+		return state.game.current_buy_in * 2;
 	}
 	
 	private PlayerDto getActivePlayer(Game game) {
@@ -107,4 +127,7 @@ public class HandEvaluation {
 		return state.haveKandQInAll();
 	}
 	
+	private boolean isKQs() {
+		return state.haveKandQinAllSameColor();
+	}
 }
