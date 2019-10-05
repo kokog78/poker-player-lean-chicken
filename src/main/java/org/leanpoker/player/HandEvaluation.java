@@ -82,7 +82,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean is2PairsOrBetter() {
-		return state.havePoker() || state.haveFullHouse() || state.haveStraight() || state.haveDrill() || state.have2Pair();
+		return state.havePoker() || state.haveFullHouse() || state.haveDrill() || state.have2Pair();
 	}
 	
 	private boolean doAllIn() {
