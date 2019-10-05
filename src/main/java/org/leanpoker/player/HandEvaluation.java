@@ -17,7 +17,11 @@ public class HandEvaluation {
 				return getMinRaise();
 			} else {
 				if (is66Plus() || isATsPlus() || isAJPlus() || isKQs()) {
-					return getAllInValue();
+					if (getPot() >= getBigBlindValue() * 4) {
+						return getAllInValue();
+					} else {
+						return getMinRaise();
+					}
 				} else if (weFaceRaiseMaxInBB(2.5)) {
 					return getMinRaise();
 				} else {
@@ -51,7 +55,7 @@ public class HandEvaluation {
 	private boolean is66Plus() {
 		for (String rank : RankOrder.ranks) {
 			if (RankOrder.instance.compare("6", rank) <= 0) {
-				if (hasCards(false, rank, rank)) {
+				if (hasCards(rank + rank + "o")) {
 					return true;
 				}
 			}
@@ -62,7 +66,7 @@ public class HandEvaluation {
 	private boolean isATsPlus() {
 		for (String rank : RankOrder.ranks) {
 			if (RankOrder.instance.compare("10", rank) <= 0) {
-				if (hasCards(true, "A", rank)) {
+				if (hasCards("A" + rank + "s")) {
 					return true;
 				}
 			}
@@ -73,7 +77,7 @@ public class HandEvaluation {
 	private boolean isAJPlus() {
 		for (String rank : RankOrder.ranks) {
 			if (RankOrder.instance.compare("J", rank) <= 0) {
-				if (hasCards(false, "A", rank)) {
+				if (hasCards("A" + rank + "o")) {
 					return true;
 				}
 			}
@@ -91,6 +95,10 @@ public class HandEvaluation {
 	
 	private int getAllInValue() {
 		return getActivePlayer(state.game).stack;
+	}
+	
+	private int getPot() {
+		return state.game.pot;
 	}
 	
 	private boolean weFacingNoBet() {
@@ -125,6 +133,10 @@ public class HandEvaluation {
 	
 	private boolean hasCards(boolean sameColor, String... ranks) {
 		return state.haveCards(state.getAllCards(), sameColor, ranks);
+	}
+	
+	private boolean hasCards(String rule) {
+		return new CardsRule(rule).matches(state.getAllCards());
 	}
 	
 	private boolean isPreFlop() {
@@ -172,6 +184,6 @@ public class HandEvaluation {
 	}
 	
 	private boolean isKQs() {
-		return state.haveKandQinAllSameColor();
+		return hasCards("KQs");
 	}
 }
