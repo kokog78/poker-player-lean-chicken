@@ -36,7 +36,7 @@ public class GameState {
 		List<Card> cards = getAllCards();
 		for (int i = 0; i < cards.size(); i++) {
 			for (int j = i + 1; j < cards.size(); j++) {
-				if (cards.get(i).equals(cards.get(j))) {
+				if (cards.get(i).rank.equals(cards.get(j).rank)) {
 					return cards.get(i);
 				}
 			}
@@ -141,4 +141,3 @@ public class GameState {
  }
  ]
  */
- }
