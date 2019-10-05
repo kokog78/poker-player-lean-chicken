@@ -1,6 +1,7 @@
 package org.leanpoker.player;
 
 import org.leanpoker.player.model.Game;
+import org.leanpoker.player.model.PlayerDto;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -21,7 +22,7 @@ public class Player {
     	return new GsonBuilder().create().fromJson(request, Game.class);
     }
     
-    public static org.leanpoker.player.model.Player getActivePlayer(Game game) {
+    public static PlayerDto getActivePlayer(Game game) {
     	return game.players.get(game.in_action);
     }
 

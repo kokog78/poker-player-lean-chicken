@@ -4,12 +4,12 @@ import java.util.List;
 
 public class PlayerDto {
 
-	String name;
-	Integer stack;
-	String status;
-	Integer bet;
-	List<Card> hole_cards;
-	String version;
-	Integer id;
+	public String name;
+	public Integer stack;
+	public String status;
+	public Integer bet;
+	public List<Card> hole_cards;
+	public String version;
+	public Integer id;
 
 }
