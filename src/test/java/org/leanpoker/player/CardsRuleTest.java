@@ -23,6 +23,40 @@ public class CardsRuleTest {
 		assertFalse(new CardsRule("810o").matches(lc));
 	}
 	
+	@Test
+	public void testName1() throws Exception {
+		List<Card> lc = Arrays.asList(
+                new Card("K", Suit.spades),
+                new Card("2", Suit.clubs));
+		assertFalse(new CardsRule("KQs").matches(lc));
+		
+		for (String rank : RankOrder.ranks) {
+			if (RankOrder.instance.compare("J", rank) <= 0) {
+				assertFalse(new CardsRule("A" + rank + "o").matches(lc));
+			}
+		}
+
+		for (String rank : RankOrder.ranks) {
+			if (RankOrder.instance.compare("10", rank) <= 0) {
+				assertFalse(new CardsRule("A" + rank + "s").matches(lc));
+			}
+		}
+	}
+	
+	
+	@Test
+	public void testName2() throws Exception {
+		List<Card> lc = Arrays.asList(
+                new Card("K", Suit.spades),
+                new Card("2", Suit.clubs));
+		for (String rank : RankOrder.ranks) {
+			if (RankOrder.instance.compare("6", rank) <= 0) {
+				System.out.println(rank);
+				assertFalse(new CardsRule(rank + rank + "o").matches(lc));
+			}
+		}
+	}
+	
 	
 	
 }

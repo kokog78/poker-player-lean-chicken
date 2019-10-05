@@ -32,8 +32,7 @@ public class CardsRule {
 		for (Card card : cards) {
 			if (card.rank.equals(rank1)) {
 				rank1Suites.add(card.suit);
-			}
-			if (card.rank.equals(rank2)) {
+			} else if (card.rank.equals(rank2)) {
 				rank2Suites.add(card.suit);
 			}
 		}
