@@ -24,11 +24,16 @@ public class HandEvaluation {
 					return 0;
 				}
 			}
-		} else if (isFlop()) {
-			if (weFacingNoBet()) {
-				return getBigBlindValue();
-			} if (weFaceRaiseMaxInBB(3)) {
-				return getMinRaise();
+		} else {
+			if (isFlop()) {
+				if (weFacingNoBet()) {
+					return getBigBlindValue();
+				} if (weFaceRaiseMaxInBB(3)) {
+					return getMinRaise();
+				}
+			}
+			if (isPairOrBetter()) {
+				return getAllInValue();
 			}
 		}
 
@@ -74,6 +79,10 @@ public class HandEvaluation {
 			}
 		}
 		return false;
+	}
+	
+	private boolean isPairOrBetter() {
+		return state.havePoker() || state.haveFullHouse() || state.haveDrill() || state.have2Pair() || state.havePair();
 	}
 	
 	private boolean doAllIn() {
