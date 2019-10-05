@@ -56,19 +56,19 @@ public class HandEvaluation {
 	}
 	
 	private boolean isKQs() {
-		return state.haveKandQInAll();
+		return false;
 	}
 	
 	private boolean isKJs() {
-		return false;
+		return state.haveKandJSameColor();
 	}
 	
 	private boolean isKTs() {
-		return false;
+		return state.haveKand10SameColor();
 	}
 	
 	private boolean isKQo() {
-		return false;
+		return state.haveKandQInAll();
 	}
 	
 }
