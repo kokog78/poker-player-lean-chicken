@@ -33,7 +33,7 @@ public class HandEvaluation {
 				}
 			}
 			if (is2PairsOrBetter()) {
-				return getAllInValue();
+				return getMinRaise();
 			}
 		}
 
