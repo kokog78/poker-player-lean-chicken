@@ -16,9 +16,9 @@ public class HandEvaluation {
 			if (isFirstIn()) {
 				return getMinRaise();
 			} else {
-				if (is66Plus() || isATsPlus() || isAJPlus() || isKQs()) {
+				if (isATsPlus() || isAJPlus() || isKQs()) {
 					if (getPot() >= getBigBlindValue() * 4) {
-						return getAllInValue();
+						return getMinRaise();
 					} else {
 						return getMinRaise();
 					}
