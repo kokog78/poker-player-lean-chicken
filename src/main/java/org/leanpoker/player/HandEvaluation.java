@@ -14,13 +14,11 @@ public class HandEvaluation {
 	public int getBet() {
 		if (doAllIn()) {
     		return getAllInValue();
-    	} else {
-    		/*
+    	} else if (!wasRaised()) {
     		int minimum = getMinimalValue();
     		if (minimum <= getStack()) {
     			return minimum;
     		}
-    		*/
     	}
 		return 0;
 	}
@@ -35,6 +33,10 @@ public class HandEvaluation {
 	
 	private int getStack() {
 		return getActivePlayer(state.game).stack;
+	}
+	
+	private boolean wasRaised() {
+		return state.game.current_buy_in > state.game.small_blind * 2;
 	}
 	
 	private int getMinimalValue() {
