@@ -29,10 +29,14 @@ public class GameStateBaseTest {
 
         lc = Arrays.asList(
                 new Card("A", Suit.clubs),
+                new Card("A", Suit.hearts),
                 new Card("Q", Suit.diamonds),
                 new Card("10", Suit.clubs));
         assertFalse(gs.haveCards(lc, true, "A", "Q"));
         assertTrue(gs.haveCards(lc, true, "A", "10"));
+        assertTrue(gs.haveCards(lc, false, "A", "A"));
+        assertFalse(gs.haveCards(lc, false, "A", "A", "A"));
+
 
 
 
