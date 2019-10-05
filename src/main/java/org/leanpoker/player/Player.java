@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Player {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "All-in always";
 
     public static int betRequest(JsonElement request) {
         return Integer.MAX_VALUE;
