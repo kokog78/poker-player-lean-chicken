@@ -83,8 +83,25 @@ public class GameState {
 		return haveRankInAllCards("K", "Q");
 	}
 
+	public boolean haveKandJSameColor() {
+		List<Card> cards = getMyPlayer().hole_cards;
+		if (		cards.stream().anyMatch(c -> c.rank.equals("K"))
+				&&  cards.stream().anyMatch(c -> c.rank.equals("J"))
+				&&  cards.get(0).suit.equals(cards.get(1).suit)) {
+			return true;
+		}
+		return false;
+	}
 
-
+	public boolean haveKand10SameColor() {
+		List<Card> cards = getMyPlayer().hole_cards;
+		if (		cards.stream().anyMatch(c -> c.rank.equals("K"))
+				&&  cards.stream().anyMatch(c -> c.rank.equals("10"))
+				&&  cards.get(0).suit.equals(cards.get(1).suit)) {
+			return true;
+		}
+		return false;
+	}
 }
 
 /**
