@@ -12,19 +12,47 @@ public class HandEvaluation {
 	}
 	
 	public int getBet() {
-		if (doAllHands()) {
-    		return getActivePlayer(state.game).stack;
+		if (doAllIn()) {
+    		return getAllInValue();
     	} else {
     		return 0;
     	}
 	}
 	
-	public boolean doAllHands() {
-		return true;
+	private boolean doAllIn() {
+		return isPair() || isAX() || isKQs() || isKJs() || isKTs() || isKQo();
 	}
 	
-	public PlayerDto getActivePlayer(Game game) {
+	private int getAllInValue() {
+		return getActivePlayer(state.game).stack;
+	}
+	
+	private PlayerDto getActivePlayer(Game game) {
     	return game.players.get(game.in_action);
     }
+	
+	private boolean isPair() {
+		return state.havePair();
+	}
+	
+	private boolean isAX() {
+		return false;
+	}
+	
+	private boolean isKQs() {
+		return false;
+	}
+	
+	private boolean isKJs() {
+		return false;
+	}
+	
+	private boolean isKTs() {
+		return false;
+	}
+	
+	private boolean isKQo() {
+		return false;
+	}
 	
 }
