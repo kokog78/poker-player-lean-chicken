@@ -1,5 +1,8 @@
 package org.leanpoker.player;
 
+import java.util.List;
+
+import org.leanpoker.player.model.Card;
 import org.leanpoker.player.model.Game;
 import org.leanpoker.player.model.PlayerDto;
 
@@ -12,7 +15,12 @@ public class Player {
 
     public static int betRequest(JsonElement request) {
     	Game game = toGame(request);
-        return getActivePlayer(game).stack;
+    	HandEvaluation eval = new HandEvaluation(getHand(game));
+    	if (eval.doAllHands()) {
+    		return getActivePlayer(game).stack;
+    	} else {
+    		return 0;
+    	}
     }
 
     public static void showdown(JsonElement game) {
@@ -26,9 +34,9 @@ public class Player {
     	return game.players.get(game.in_action);
     }
 
-    private static int[] getHand(Game game) {
-    	
-    	
-    	return null;
+    private static List<Card> getHand(Game game) {
+    	return getActivePlayer(game).hole_cards;
     }
+    
+    
 }
