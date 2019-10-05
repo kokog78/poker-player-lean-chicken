@@ -15,7 +15,7 @@ public class HandEvaluation {
 		if (doAllIn()) {
     		return getAllInValue();
     	} else {
-    		return 0;
+    		return getMinimalValue();
     	}
 	}
 	
@@ -25,6 +25,14 @@ public class HandEvaluation {
 	
 	private int getAllInValue() {
 		return getActivePlayer(state.game).stack;
+	}
+	
+	private int getMinimalValue() {
+		int value = state.game.small_blind * 4;
+		if (value <= getActivePlayer(state.game).stack) {
+			return value;
+		}
+		return 0;
 	}
 	
 	private PlayerDto getActivePlayer(Game game) {
