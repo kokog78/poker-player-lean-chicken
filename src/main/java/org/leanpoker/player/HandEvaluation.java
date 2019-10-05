@@ -1,6 +1,5 @@
 package org.leanpoker.player;
 
-import org.leanpoker.player.model.Card;
 import org.leanpoker.player.model.Game;
 import org.leanpoker.player.model.PlayerDto;
 
@@ -37,12 +36,7 @@ public class HandEvaluation {
 	}
 	
 	private boolean isAX() {
-		for (Card card : state.getAllCards()) {
-			if (card.rank.equals("A")) {
-				return true;
-			}
-		}
-		return false;
+		return state.haveAce();
 	}
 	
 	private boolean isKQs() {
