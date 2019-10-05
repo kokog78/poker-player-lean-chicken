@@ -134,6 +134,11 @@ public class GameState {
 		}
 		return false;
 	}
+
+	public boolean haveKandQinAllSameColor() {
+		return 	haveCards(getAllCards(), true, "K", "Q");
+	}
+
 }
 
 /**
