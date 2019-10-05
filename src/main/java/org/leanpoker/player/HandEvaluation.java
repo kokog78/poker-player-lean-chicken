@@ -15,10 +15,15 @@ public class HandEvaluation {
 		if (isPreFlop()) {
 			if (isFirstIn()) {
 				return getMinRaise();
-			} else if (weFaceMinimalRaise()) {
-				return getMinRaise();
 			} else {
-				return 0;
+				if (is66Plus() || isATsPlus() || isAJPlus() || isKQs()) {
+					return getAllInValue();
+				}
+				if (weFaceMinimalRaise()) {
+					return getMinRaise();
+				} else {
+					return 0;
+				}
 			}
 		} else {
 			if (weFacingNoBet()) {
@@ -35,6 +40,39 @@ public class HandEvaluation {
     		}
     	}
 		return 0;
+	}
+	
+	private boolean is66Plus() {
+		for (String rank : RankOrder.instance.ranks) {
+			if (RankOrder.instance.compare("6", rank) <= 0) {
+				if (hasCards(false, rank, rank)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean isATsPlus() {
+		for (String rank : RankOrder.instance.ranks) {
+			if (RankOrder.instance.compare("10", rank) <= 0) {
+				if (hasCards(true, "A", rank)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean isAJPlus() {
+		for (String rank : RankOrder.instance.ranks) {
+			if (RankOrder.instance.compare("J", rank) <= 0) {
+				if (hasCards(false, "A", rank)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	private boolean doAllIn() {
