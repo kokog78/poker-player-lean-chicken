@@ -47,7 +47,32 @@ public class GameState extends GameStateBase {
 		return getPair() != null;
 	}
 
-	public boolean haveRankInHand(String... rank) {
+
+
+	public boolean haveAce() {
+		return 	haveCards(getAllCards(), false, "A");
+	}
+
+	public boolean haveKandQInAll() {
+		return 	haveCards(getAllCards(), false, "K", "Q");
+	}
+
+	public boolean haveKandJSameColor() {
+		return 	haveCards(getAllCards(), true, "K", "J");
+
+	}
+
+	public boolean haveKand10SameColor() {
+		return 	haveCards(getAllCards(), true, "K", "10");
+	}
+
+	public boolean haveKandQinAllSameColor() {
+		return 	haveCards(getAllCards(), true, "K", "Q");
+	}
+
+}
+
+/*public boolean haveRankInHand(String... rank) {
 		List<Card> allcards = getMyPlayer().hole_cards;
 		for (int j = 0; j < rank.length; j++) {
 			boolean foundIt = false;
@@ -58,10 +83,9 @@ public class GameState extends GameStateBase {
 			if (!foundIt) return false;
 		}
 		return true;
-	}
+	}*/
 
-
-	public boolean haveRankInAllCards(String... rank) {
+	/*public boolean haveRankInAllCards(String... rank) {
 		List<Card> allcards = getAllCards();
 		for (int j = 0; j < rank.length; j++) {
 			boolean foundIt = false;
@@ -72,46 +96,7 @@ public class GameState extends GameStateBase {
 			if (!foundIt) return false;
 		}
 		return true;
-	}
-
-
-
-
-
-	public boolean haveAce() {
-		return haveRankInAllCards("A");
-	}
-
-
-	public boolean haveKandQInAll() {
-		return haveRankInAllCards("K", "Q");
-	}
-
-	public boolean haveKandJSameColor() {
-		List<Card> cards = getMyPlayer().hole_cards;
-		if (		cards.stream().anyMatch(c -> c.rank.equals("K"))
-				&&  cards.stream().anyMatch(c -> c.rank.equals("J"))
-				&&  cards.get(0).suit.equals(cards.get(1).suit)) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean haveKand10SameColor() {
-		List<Card> cards = getMyPlayer().hole_cards;
-		if (		cards.stream().anyMatch(c -> c.rank.equals("K"))
-				&&  cards.stream().anyMatch(c -> c.rank.equals("10"))
-				&&  cards.get(0).suit.equals(cards.get(1).suit)) {
-			return true;
-		}
-		return false;
-	}
-
-	public boolean haveKandQinAllSameColor() {
-		return 	haveCards(getAllCards(), true, "K", "Q");
-	}
-
-}
+	}*/
 
 /**
  {
