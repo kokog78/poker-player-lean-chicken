@@ -36,7 +36,7 @@ public class HandEvaluation {
 					return getMinRaise();
 				}
 			}
-			if (isPairOrBetter()) {
+			if (is2PairsOrBetter()) {
 				return getAllInValue();
 			}
 		}
@@ -85,7 +85,7 @@ public class HandEvaluation {
 		return false;
 	}
 	
-	private boolean isPairOrBetter() {
+	private boolean is2PairsOrBetter() {
 		return state.havePoker() || state.haveFullHouse() || state.haveDrill() || state.have2Pair();
 	}
 	
