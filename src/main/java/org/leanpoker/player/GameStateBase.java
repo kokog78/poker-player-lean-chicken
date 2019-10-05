@@ -35,6 +35,7 @@ public class GameStateBase {
                 spades = spades && rankMap.get(rank[i]).stream().anyMatch(c -> c.suit.equals(Suit.spades));
                 hearts = hearts && rankMap.get(rank[i]).stream().anyMatch(c -> c.suit.equals(Suit.hearts));
                 diamonds = diamonds && rankMap.get(rank[i]).stream().anyMatch(c -> c.suit.equals(Suit.diamonds));
+                rankMap.get(rank[i]).remove(0);
             }
         }
         if (sameColor) {

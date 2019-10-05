@@ -106,6 +106,36 @@ public class GameState extends GameStateBase {
 		return false;
 	}
 
+
+	public boolean haveStraight() {
+		List<Card> clist = new ArrayList<>();
+		clist.addAll(getAllCards());
+		clist.sort(Comparator.comparing(c -> c.rank));
+		int maxLength = 0;
+		int length = 0;
+		if (clist.stream().anyMatch(c -> c.rank.equals("A"))) {
+			length = 1;
+		}
+		for (int i = 0; i < CARD_RANKS.length; i++) {
+			boolean found = false;
+
+			for(int j = 0; j< clist.size(); j++) {
+				if (clist.get(i).rank.equals(CARD_RANKS[i])) {
+					found = true;
+				}
+			}
+			if (!found) {
+				length = 0;
+			} else {
+				length++;
+				if (length > maxLength) {
+					maxLength = length;
+				}
+			}
+		}
+		return maxLength >= 5;
+	}
+
 }
 
 /*public boolean haveRankInHand(String... rank) {
