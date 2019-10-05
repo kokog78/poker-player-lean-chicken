@@ -58,7 +58,21 @@ public class GameStateBase {
         return max;
     }
 
-
+    public String maxSameCardRank(List<Card> cards) {
+        Map<String, List<Card>> rankMap = cardsMap(cards);
+        int max = 0;
+        String maxRank = "";
+        for (String rank : CARD_RANKS) {
+            if (rankMap.containsKey(rank)) {
+                int size = rankMap.get(rank).size();
+                if (max < size) {
+                    max = size;
+                    maxRank = rank;
+                }
+            }
+        }
+        return maxRank;
+    }
 
 
 }

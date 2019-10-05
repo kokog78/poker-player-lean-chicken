@@ -84,7 +84,6 @@ public class GameState extends GameStateBase {
 		return maxSameCard(getAllCards()) == 4;
 	}
 
-
 	public boolean have2Pair() {
 		Card c = getPair();
 		if (c == null) {
@@ -94,6 +93,17 @@ public class GameState extends GameStateBase {
 		clist.addAll(getAllCards());
 		clist.removeIf(c2 -> c2.rank == c.rank);
 		return getPair(clist) != null;
+	}
+
+	public boolean haveFullHouse() {
+		List<Card> clist = new ArrayList<>();
+		clist.addAll(getAllCards());
+		if (maxSameCard(clist) == 3) {
+			String rank = maxSameCardRank(clist);
+			clist.removeIf(c -> c.rank.equals(rank));
+			return maxSameCard(clist) > 1;
+		}
+		return false;
 	}
 
 }
